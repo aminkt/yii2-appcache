@@ -1,6 +1,6 @@
 <?php
 
-namespace aminky\components\appcache;
+namespace aminkt\components\appcache;
 
 use Yii;
 use yii\base\ActionFilter;
