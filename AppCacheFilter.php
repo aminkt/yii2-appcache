@@ -45,20 +45,36 @@ class AppCacheFilter extends ActionFilter
      */
     public function beforeAction($action)
     {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
         $view = $action->controller->view;
         $js = <<<JS
 if (window.applicationCache) {
-	window.applicationCache.addEventListener('updateready', function (e) {
-		if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-			window.applicationCache.swapCache();
-			//window.location.reload();
-		}
-	}, false);
+window.applicationCache.addEventListener('updateready', function (e) {
+    if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+        window.applicationCache.swapCache();
+        //window.location.reload();
+    }
+}, false);
 }
 JS;
         $view->registerJs($js, View::POS_BEGIN);
         $this->_manifest_file = static::getFileName($action->uniqueId, true, $this->rel);
+        Yii::warning($this->_manifest_file);
         return true;
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function afterAction($action, $result)
+    {
+        $this->createManifest($action->uniqueId, $result);
+
+        return parent::afterAction($action, $result);
     }
 
     /**
@@ -82,14 +98,21 @@ JS;
         }
     }
 
+
     /**
-     * @inheritdoc
+     * Return manifest file name.
+     *
+     * @param \yii\web\View $view
+     *
+     * @author Amin Keshavarz <amin@keshavarz.pro>
+     *
+     * @return bool|string
      */
-    public function afterAction($action, $result)
+    public static function getManifestFileUrl($view)
     {
-        $this->createManifest($action->uniqueId, $result);
-        return $result;
+        return self::getFileName($view->context->action->uniqueId, true);
     }
+
 
     /**
      * Create manifest file.
@@ -209,7 +232,8 @@ JS;
     private function convertPathToUrl($path, $basePath, $baseUrl)
     {
         if ($baseUrl && $basePath && strpos($path, $basePath) === 0) {
-            return $baseUrl . substr($path, strlen($basePath));
+            $url = $baseUrl . substr($path, strlen($basePath));
+            return FileHelper::normalizePath($url, '/');
         }
         return false;
     }
