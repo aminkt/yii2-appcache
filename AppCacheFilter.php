@@ -110,7 +110,10 @@ JS;
      */
     public static function getManifestFileUrl($view)
     {
-        return self::getFileName($view->context->action->uniqueId, true);
+        $path = self::getFileName($view->context->action->uniqueId);
+        if (file_exists($path))
+            return self::getFileName($view->context->action->uniqueId, true);
+        return false;
     }
 
 
