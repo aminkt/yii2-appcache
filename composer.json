@@ -13,12 +13,13 @@
     	}
     ],
     "require": {
-      "yiisoft/yii2": "~2.0.11"
+      "yiisoft/yii2": ">=2.0.11"
     },
     "autoload": {
     	"psr-4": {
           "aminkt\\components\\appcache\\": ""
     	}
     },
+  "minimum-stability": "dev",
     "prefer-stable": true
 }
