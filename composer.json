@@ -1,0 +1,30 @@
+{
+    "name": "aminkt/yii2-appcache",
+    "description": "Yii2 appcache component to enable app cache in site.",
+    "keywords": ["yii", "appcache", "component", "cache", "seo"],
+    "type": "yii2-extension",
+    "support": {
+    	"source": "https://gitlab.com/aminkt/yii2-appcache"
+    },
+    "authors": [
+    	{
+    		"name": "Amin Keshavarz",
+    		"email": "ak_1596@yahoo.com"
+    	}
+    ],
+    "require": {
+      "yiisoft/yii2": "~2.0.11"
+    },
+    "autoload": {
+    	"psr-4": {
+    		"aminkt\\component\\appcache\\": ""
+    	}
+    },
+    "extra": {
+        "branch-alias": {
+          "dev-master": "master"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
