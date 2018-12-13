@@ -4,7 +4,7 @@
     "keywords": ["yii", "appcache", "component", "cache", "seo"],
     "type": "yii2-extension",
     "support": {
-    	"source": "https://gitlab.com/aminkt/yii2-appcache"
+    	"source": "https://github.com/aminkt/yii2-appcache"
     },
     "authors": [
     	{
